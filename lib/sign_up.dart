@@ -33,6 +33,22 @@ class MyForm extends StatelessWidget {
     if (value.length != 11) {
       return 'Please enter a 11-digit phone number';
     }
+    return null;
+  }
+
+  String? _validatePassword(value) {
+    if (value!.isEmpty) {
+      return 'Please enter a password';
+    }
+
+    return null;
+  }
+
+  String? _validateUserName(value) {
+    if (value!.isEmpty) {
+      return 'Please enter a username';
+    }
+    return null;
   }
 
   @override
@@ -48,45 +64,54 @@ class MyForm extends StatelessWidget {
           key: _formKey,
           child: Column(
             children: [
+              SizedBox(height: 16),
+              const Text(
+                'Create new Account',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 28,
+                ),
+              ),
+              const SizedBox(height: 16),
               TextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  labelText: 'Username',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                decoration: _buildInputDecoration(
+                  'Username',
+                  Icons.person,
                 ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter a username';
-                  }
-                  return null;
-                },
+                validator: _validateUserName,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                decoration: _buildInputDecoration(
+                  'Email',
+                  Icons.email,
                 ),
                 validator: _validateEmail,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  labelText: 'Phone Number',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+                keyboardType: TextInputType.phone,
+                decoration: _buildInputDecoration(
+                  'Phone Number',
+                  Icons.call,
                 ),
                 validator: _validatePhoneNumber,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 16),
+              TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                keyboardType: TextInputType.number,
+                decoration: _buildInputDecoration(
+                  'Password',
+                  Icons.lock,
+                ),
+                validator: _validatePassword,
+              ),
+              const SizedBox(height: 16),
               Container(
                 height: 50,
                 width: double.infinity,
@@ -98,6 +123,22 @@ class MyForm extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  InputDecoration _buildInputDecoration(String label, IconData suffixIcon) {
+    return InputDecoration(
+      enabledBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.black),
+      ),
+      focusedBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.blue),
+      ),
+      labelText: label,
+      suffixIcon: Icon(suffixIcon),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
     );
   }
