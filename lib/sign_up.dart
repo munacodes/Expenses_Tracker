@@ -66,6 +66,7 @@ class MyForm extends StatelessWidget {
               const SizedBox(height: 16),
               TextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(
