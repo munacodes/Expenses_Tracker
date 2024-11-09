@@ -1,9 +1,12 @@
+import 'package:expenses_tracker/screens/login_screen.dart';
+import 'package:expenses_tracker/utils/app_validator.dart';
 import 'package:flutter/material.dart';
 
-class MyForm extends StatelessWidget {
-  MyForm({super.key});
+class SignUpView extends StatelessWidget {
+  SignUpView({super.key});
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  var appValidator = AppValidator();
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
@@ -15,46 +18,11 @@ class MyForm extends StatelessWidget {
     }
   }
 
-  String? _validateEmail(value) {
-    if (value!.isEmpty) {
-      return 'Please enter an email';
-    }
-    RegExp emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    if (!emailRegExp.hasMatch(value)) {
-      return 'Please enter a valid email';
-    }
-    return null;
-  }
-
-  String? _validatePhoneNumber(value) {
-    if (value!.isEmpty) {
-      return 'Please enter a phone number';
-    }
-    if (value.length != 11) {
-      return 'Please enter a 11-digit phone number';
-    }
-    return null;
-  }
-
-  String? _validatePassword(value) {
-    if (value!.isEmpty) {
-      return 'Please enter a password';
-    }
-
-    return null;
-  }
-
-  String? _validateUserName(value) {
-    if (value!.isEmpty) {
-      return 'Please enter a username';
-    }
-    return null;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.blue,
         title: const Text('My Form'),
       ),
@@ -65,21 +33,22 @@ class MyForm extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 16),
-              const Text(
+              Text(
                 'Create new Account',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 28,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 50),
               TextFormField(
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: _buildInputDecoration(
                   'Username',
                   Icons.person,
                 ),
-                validator: _validateUserName,
+                validator: appValidator.validateUserName,
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -89,7 +58,7 @@ class MyForm extends StatelessWidget {
                   'Email',
                   Icons.email,
                 ),
-                validator: _validateEmail,
+                validator: appValidator.validateEmail,
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -99,7 +68,7 @@ class MyForm extends StatelessWidget {
                   'Phone Number',
                   Icons.call,
                 ),
-                validator: _validatePhoneNumber,
+                validator: appValidator.validatePhoneNumber,
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -109,15 +78,44 @@ class MyForm extends StatelessWidget {
                   'Password',
                   Icons.lock,
                 ),
-                validator: _validatePassword,
+                validator: appValidator.validatePassword,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 40),
               Container(
                 height: 50,
                 width: double.infinity,
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                  ),
                   onPressed: _submitForm,
-                  child: const Text('Submit'),
+                  child: const Text(
+                    'Create',
+                    style: TextStyle(
+                      fontSize: 25,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return LoginScreen();
+                      },
+                    ),
+                  );
+                },
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 25,
+                  ),
                 ),
               ),
             ],

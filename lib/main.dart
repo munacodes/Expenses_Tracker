@@ -1,5 +1,5 @@
 import 'package:expenses_tracker/home_screen.dart';
-import 'package:expenses_tracker/sign_up.dart';
+import 'package:expenses_tracker/screens/sign_up.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyForm(),
+      home: SignUpView(),
     );
   }
 }
