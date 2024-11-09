@@ -36,6 +36,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text(
+          'Hello',
+          style: TextStyle(color: Colors.white),
+        ),
         actions: [
           IconButton(
             onPressed: () async {
@@ -47,14 +52,38 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.blue,
                     ),
                   )
-                : Icon(Icons.exit_to_app),
+                : Icon(
+                    Icons.exit_to_app,
+                    color: Colors.white,
+                  ),
           ),
         ],
       ),
-      body: Text(
-        'Home',
-        style: TextStyle(
-          color: Colors.yellow,
+      body: Container(
+        width: double.infinity,
+        color: Colors.blue,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Total Balance',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.white,
+                height: 1.2,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            Text(
+              'N 582000',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.white,
+                height: 1.2,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
         ),
       ),
     );

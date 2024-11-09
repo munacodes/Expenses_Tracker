@@ -1,4 +1,3 @@
-import 'package:expenses_tracker/home_screen.dart';
 import 'package:expenses_tracker/screens/sign_up.dart';
 import 'package:expenses_tracker/widgets/auth_gate.dart';
 import 'package:firebase_core/firebase_core.dart';
