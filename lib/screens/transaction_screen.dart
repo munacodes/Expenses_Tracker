@@ -1,3 +1,4 @@
+import 'package:expenses_tracker/widgets/time_line_month.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,7 +14,7 @@ class TransactionScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Text('Transaction'),
+          TimeLineMonth(),
         ],
       ),
     );
