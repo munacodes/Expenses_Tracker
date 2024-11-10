@@ -1,4 +1,7 @@
 import 'package:expenses_tracker/screens/login_screen.dart';
+import 'package:expenses_tracker/widgets/add_transaction_form.dart';
+import 'package:expenses_tracker/widgets/hero_card.dart';
+import 'package:expenses_tracker/widgets/transactions_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +15,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final userId = FirebaseAuth.instance.currentUser!.uid;
+
   var isLogoutLoading = false;
 
   logOut() async {
@@ -32,11 +37,31 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  _dialogBuilder(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: AddTransactionForm(),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue.shade900,
+        foregroundColor: Colors.white,
+        onPressed: () {
+          _dialogBuilder(context);
+        },
+        child: Icon(Icons.add),
+      ),
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        automaticallyImplyLeading: false,
+        backgroundColor: Colors.blue.shade900,
         title: Text(
           'Hello',
           style: TextStyle(color: Colors.white),
@@ -49,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: isLogoutLoading
                 ? Center(
                     child: CircularProgressIndicator(
-                      color: Colors.blue,
+                      color: Colors.white,
                     ),
                   )
                 : Icon(
@@ -59,30 +84,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Container(
-        width: double.infinity,
-        color: Colors.blue,
+      body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Total Balance',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-                height: 1.2,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            Text(
-              'N 582000',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-                height: 1.2,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            HeroCard(userId: userId),
+            TransactionsCard(),
           ],
         ),
       ),
