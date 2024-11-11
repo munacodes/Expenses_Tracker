@@ -11,7 +11,7 @@ class TransactionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime date = DateTime.fromMillisecondsSinceEpoch(data['timestamp']);
-    String formattedDate = DateFormat('d MM hh:mma').format(date);
+    String formattedDate = DateFormat('EEE, d MMM   hh:mm a').format(date);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Container(
